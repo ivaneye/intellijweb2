@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 定义日志文件 输入位置 -->
+    <property name="log_dir" value="/home/ivaneye/logs/synapse/shilu" />
+    <!-- 日志最大的历史 30天 -->
+    <property name="maxHistory" value="30"/>
+
+    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 对日志进行格式化 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- root级别   DEBUG -->
+    <root level="info">
+        <!-- 控制台输出 -->
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
