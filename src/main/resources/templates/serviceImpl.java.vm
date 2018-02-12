@@ -1,0 +1,47 @@
+#set($pkg = $package.Mapper.substring(0,$package.Mapper.lastIndexOf(".")) + ".respository")
+#set($paramPkg = $package.Entity.substring(0,$package.Entity.lastIndexOf(".")) + ".param")
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${pkg}.${entity}Respository;
+import ${paramPkg}.${entity}Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+@Transactional
+#if(${kotlin})
+open class ${table.serviceImplName} {
+
+}
+#else
+#set($instanceName = $entity.substring(0,1).toLowerCase() + $entity.substring(1,$entity.length()))
+public class ${table.serviceImplName} {
+
+    @Autowired
+    private ${entity}Respository ${instanceName}Respository;
+
+    public ${entity} find(Long recId){
+        return ${instanceName}Respository.selectByPrimaryKey(recId);
+    }
+
+    public Long create(${entity}Param param) {
+        ${instanceName}Respository.insertAndGet(param);
+        #foreach($field in ${table.fields})
+                #if(${field.keyFlag})
+        return param.get${field.capitalName}();
+                #end
+        #end
+    }
+
+}
+#end

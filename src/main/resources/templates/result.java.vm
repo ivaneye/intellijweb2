@@ -1,0 +1,16 @@
+#set($pkg = $package.Entity.substring(0,$package.Entity.lastIndexOf(".")) + ".result")
+package $pkg;
+
+import ${package.Entity}.${entity};
+
+/**
+ * <p>
+ * ${entity}Param
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public class ${entity}Result extends ${entity} {
+
+}
